@@ -7,3 +7,5 @@ let mongo = new movies()
 //console.table(await mongo.getAllMoviesWithMoreOf200Bluray());
 //console.table(await mongo.getAllMoviesWithMinusOf10Dvd());
 //console.table(await mongo.getAllMoviesWithCobb());
+//console.table(await mongo.getAllMoviesWithActors2And3());
+//console.table(await mongo.getAllFictionMovies());

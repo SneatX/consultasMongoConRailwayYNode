@@ -36,7 +36,25 @@ export class movies extends connect {
     }
 
     async getAllMoviesWithCobb(){
-        let res = await this.collection.find({character: {$elemMatch:{apodo: "Cobb"}}},{_id:0, name:1, character:1}).toArray();
+        let res = await this.collection.find({character: {$elemMatch:{apodo: "Cobb"}}},{projection: {_id:0, name:1, character:1}}).toArray();
+        await this.conexion.close()
+        return res;
+    }
+
+    async getAllMoviesWithActors2And3(){
+        let res = await this.collection.find({character:{$elemMatch:{id_actor:{$in: [2,3]}}}},{projection: {_id:0, name:1, character:1}}).toArray();
+        await this.conexion.close()
+        return res;
+    }
+
+    async getAllMoviesIfHaveBlueray(){
+        let res = await this.collection.find({format:{$elemMatch:{name:"Bluray"}}},{projection: {_id:0, name:1, format:1}}).toArray();
+        await this.conexion.close()
+        return res;
+    }
+
+    async getAllFictionMovies(){
+        let res = await this.collection.find({genre: {$elemMatch: {$eq: "Ciencia Ficción"}}},{projection: {_id:0, name:1, genre:1}}).toArray();
         await this.conexion.close()
         return res;
     }
