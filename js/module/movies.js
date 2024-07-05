@@ -58,4 +58,28 @@ export class movies extends connect {
         await this.conexion.close()
         return res;
     }
+
+    async getAllMoviesIfMainCharacterIsMiguel(){
+        let res = await this.collection.find({character:{$elemMatch:{rol:{$eq:"principal"}}},character:{$elemMatch:{apodo:{$eq:"Miguel"}}}},{projection: {_id:0, name:1, character:1}}).toArray();
+        await this.conexion.close()
+        return res;
+    }
+
+    async getAllMoviesWhoHaveMoreThat100Copies(){
+        let res = await this.collection.find({format:{$elemMatch:{copies: {$gt: 100}}}},{projection: {_id:0, name:1, format:1}}).toArray();
+        await this.conexion.close()
+        return res;
+    }
+
+    async getAllMoviesByActorId(id){
+        let res = await this.collection.find({character: {$elemMatch:{id_actor:{$eq : id}}}},{projection: {_id:0, name:1, character:1}}).toArray();
+        await this.conexion.close()
+        return res;
+    }
+
+    async getAllMoviesWithSecondaryCharacterCalledArthur(){
+        let res = await this.collection.find({"character.rol":"secundario" , "character.apodo":"Arthur"},{projection: {_id:0, name:1, character:1}}).toArray();
+        await this.conexion.close()
+        return res;
+    }
 }
